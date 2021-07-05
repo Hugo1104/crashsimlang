@@ -99,9 +99,12 @@ class ContainerBuilder(object):
             self.top_level[t] = False
         member_builders = [self.builders[t[0]] for t in types]
         
+        #print(self.top_level)
+        
         # It is an error for us to find position value of a structure in the return value position   
         for struct in types:
             pos = struct[1]
+            #print(pos)
             if pos == "ret":
                 if self.top_level[container_type] == False:
                     raise CSlangError(
