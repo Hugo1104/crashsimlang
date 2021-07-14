@@ -6,24 +6,25 @@ import dill as pickle
 import os
 from collections import OrderedDict
 from . import adt
+import csv
 
 from .dataword import DataWord
 from .dataword import UninterestingDataWord
 
 class JSONToDatawords(object):
-    def __init__(self, containerbuilder, json_path):
+    def __init__(self, containerbuilder, csv_path):
         self.containerbuilder = containerbuilder
-        self.json_path = json_path      #prob this is going to be csv path
+        self.csv_path = csv_path      #prob this is going to be csv path
 
     def get_datawords(self):
-        with open(self.json_path, "r") as f:
-            j = json.loads(f.read())
+        with open(self.csv_path, "r") as file:
+            reader = csv.reader(file)           #depend on how excel sheet store info about the structure, the handling will be different
         datawords = []
-        for i in j:
+        for i in j:  #the loop will prob be differnt in order to extract data from csv
             datawords.append(self.handle_event(i))
         return datawords
 
-    def get_mutated_json(self, dw):
+    def get_mutated_json(self, dw):                #you will modify cvs file in some way
         out = {}
         out["jsonrpc"] = "2.0"
         out["method"] = dw.container["type"]
@@ -47,11 +48,11 @@ class JSONToDatawords(object):
             # JSON flavored operation here to get the return value from result
             # message
             # argslist.append(event.ret[0])
-            container = self.containerbuilder.instantiate_type(event["method"])
+            container = self.containerbuilder.instantiate_type(event["method"])      #figure out how to deal with this part
             container = self._capture_args(container, argslist)
             return DataWord(event, container)
 
-    def _capture_args(self, container, argslist):
+    def _capture_args(self, container, argslist):                               #i assume you do not need to change this part
         for i in container["members"]:
             if i["type"] in self.containerbuilder.primatives:
                 i["members"].append(
@@ -61,7 +62,7 @@ class JSONToDatawords(object):
                 self._capture_args(i, argslist[int(i["arg_pos"])])
         return container
 
-    def _get_arg_as_type(self, arg_pos, out_type, argslist):
+    def _get_arg_as_type(self, arg_pos, out_type, argslist):                 #not sure if this part need to be changed
         funcs = {"String": str, "Numeric": int}
         # will have to deal with return values from result messages
         # if arg_pos == "ret":
