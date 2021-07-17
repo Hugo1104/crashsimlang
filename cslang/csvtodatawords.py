@@ -38,7 +38,7 @@ class JSONToDatawords(object):
 
     def handle_event(self, event):
         if not any(
-            self.containerbuilder.top_level.values()
+            self.containerbuilder.top_level.values()                                   #change a bit based on how csv is parsed
         ) or not self.containerbuilder.top_level.get(event["method"]):
             # Right now, we define a system call we aren't interested in as
             # any system call with no captured arguments
