@@ -513,6 +513,23 @@ def main(args=None):
         help="Location of xmlrpc recording to execute against",
     )
 
+    csvrpc_run_argparser = run_subparsers.add_parser("csvrpc")
+
+    csvrpc_run_argparser.add_argument(
+        "-a",
+        "--automaton-path",
+        required=True,
+        type=str,
+        help="Location of CSlang automaton to be used in processing the specified strace file.",
+    )
+    csvrpc_run_argparser.add_argument(
+        "-c",
+        "--csv-path",
+        required=True,
+        type=str,
+        help="Location of csvrpc recording to execute against",
+    )
+
     if not args:
         args = parser.parse_args()
 
