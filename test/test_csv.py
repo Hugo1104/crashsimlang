@@ -21,7 +21,7 @@ class TestCSV(unittest.TestCase):
             Namespace(
                 mode="run",
                 format="csv",
-                csv_path=get_test_data_path("csv.txt"),                                    #watch out for the file that need to be changed
+                csv_path=get_test_data_path("csv.txt"),
                 automaton_path=get_test_data_path("csv.auto"),
             )
         )
