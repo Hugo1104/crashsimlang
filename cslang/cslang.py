@@ -514,6 +514,7 @@ def main(args=None):
         help="Location of xmlrpc recording to execute against",
     )
 
+
     csvrpc_run_argparser = run_subparsers.add_parser("csv")
 
     csvrpc_run_argparser.add_argument(
@@ -529,6 +530,7 @@ def main(args=None):
         required=True,
         type=str,
         help="Location of csv recording to execute against",
+
     )
 
     if not args:

@@ -12,6 +12,7 @@ from .dataword import DataWord
 from .dataword import UninterestingDataWord
 
 
+
 class CSVToDatawords(object):   
     def __init__(self, containerbuilder, csv_path):
         self.containerbuilder = containerbuilder
