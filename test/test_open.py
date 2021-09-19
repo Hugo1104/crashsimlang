@@ -21,7 +21,7 @@ class TestOpen(object):
                 format="strace",
                 strace_path=get_test_data_path("open.strace"),
                 syscall_definitions=get_test_data_path(
-                    "../cslang/syscall_definitions.pickle"
+                    "../port/syscall_definitions.pickle"
                 ),
                 automaton_path=get_test_data_path("open.auto"),
             )
@@ -44,7 +44,7 @@ class TestOpen(object):
                 format="strace",
                 strace_path=get_test_data_path("open_fail_name.strace"),
                 syscall_definitions=get_test_data_path(
-                    "../cslang/syscall_definitions.pickle"
+                    "../port/syscall_definitions.pickle"
                 ),
                 automaton_path=get_test_data_path("open_fail_name.auto"),
             )
