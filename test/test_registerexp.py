@@ -2,8 +2,8 @@ from builtins import str
 import os
 import unittest
 from argparse import Namespace
-from cslang.cslang import main as cslang_main
-from cslang.cslang_error import CSlangError
+from port.port import main as port_main
+from port.cslang_error import CSlangError
 
 
 def get_test_data_path(filename):
@@ -13,13 +13,13 @@ def get_test_data_path(filename):
 
 class TestRegisterExpressions(unittest.TestCase):
     def test_assign(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registerassign.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -37,13 +37,13 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_concat(self):
         test_file = get_test_data_path("registerconcat.cslang")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registerconcat.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -61,7 +61,7 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_badadd(self):
         with self.assertRaises(CSlangError) as cm:
-            cslang_main(
+            port_main(
                 Namespace(
                     mode="build",
                     cslang_path=get_test_data_path("register_badadd.cslang"),
@@ -71,13 +71,13 @@ class TestRegisterExpressions(unittest.TestCase):
         assert "Type mismatch between registers" in str(cm.exception)
 
     def test_add(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registeradd.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -104,13 +104,13 @@ class TestRegisterExpressions(unittest.TestCase):
         assert automaton.registers["nregreg"] == -3
 
     def test_subtract(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registersub.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -137,13 +137,13 @@ class TestRegisterExpressions(unittest.TestCase):
         assert automaton.registers["nregreg"] == 0
 
     def test_multiply(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registermul.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -171,13 +171,13 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_divide(self):
         test_file = get_test_data_path("registerdiv.cslang")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("registerdiv.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",

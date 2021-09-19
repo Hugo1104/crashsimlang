@@ -1,7 +1,7 @@
 from builtins import object
 import os
 from argparse import Namespace
-from cslang.cslang import main as cslang_main
+from port.port import main as port_main
 
 
 def get_test_data_path(filename):
@@ -13,11 +13,11 @@ class TestPredicates(object):
     def test_checkfdtrue(self):
         syscall_definitions = get_test_data_path("../cslang/syscall_definitions.pickle")
         automaton_path = get_test_data_path("predicates.auto")
-        cslang_main(
+        port_main(
             Namespace(mode="build", cslang_path=get_test_data_path("predicates.cslang"))
         )
 
-        automaton, datawords_after, s2d = cslang_main(
+        automaton, datawords_after, s2d = port_main(
             Namespace(
                 mode="run",
                 format="strace",

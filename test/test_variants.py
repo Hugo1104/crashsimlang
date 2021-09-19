@@ -1,8 +1,8 @@
 import os
 import unittest
 from argparse import Namespace
-from cslang.cslang import main as cslang_main
-from cslang.cslang_error import CSlangError
+from port.port import main as port_main
+from port.cslang_error import CSlangError
 
 
 def get_test_data_path(filename):
@@ -12,7 +12,7 @@ def get_test_data_path(filename):
 
 class TestVariants(unittest.TestCase):
     def test_single_variant(self):
-        ast = cslang_main(
+        ast = port_main(
             Namespace(
                 mode="parse",
                 check=True,
@@ -31,7 +31,7 @@ event otherread {read filedesc: Numeric@0};
         assert ast[0][2][0][1][0][2] == "filedesc"
 
     def test_many_variants(self):
-        ast = cslang_main(
+        ast = port_main(
             Namespace(
                 mode="parse",
                 check=True,
@@ -58,13 +58,13 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
     def test_simple_variant(self):
         automaton_path = get_test_data_path("variantread.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("variantread.cslang")
             )
         )
 
-        automaton_read, datawords_after_read, s2d_read = cslang_main(
+        automaton_read, datawords_after_read, s2d_read = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -74,7 +74,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
             )
         )
 
-        automaton_recv, datawords_after_recv, s2d_recv = cslang_main(
+        automaton_recv, datawords_after_recv, s2d_recv = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -95,13 +95,13 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
     def test_NOT_variant(self):
         automaton_path = get_test_data_path("variantreadnot.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("variantreadnot.cslang")
             )
         )
 
-        automaton_read, datawords_after_read, s2d_read = cslang_main(
+        automaton_read, datawords_after_read, s2d_read = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -111,7 +111,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
             )
         )
 
-        automaton_recv, datawords_after_recv, s2d_recv = cslang_main(
+        automaton_recv, datawords_after_recv, s2d_recv = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -132,13 +132,13 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
     def test_variant_with_predicates(self):
         automaton_path = get_test_data_path("variantreadpred.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("variantreadpred.cslang")
             )
         )
 
-        automaton_read, datawords_after_read, s2d_read = cslang_main(
+        automaton_read, datawords_after_read, s2d_read = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -148,7 +148,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
             )
         )
 
-        automaton_recv, datawords_after_recv, s2d_recv = cslang_main(
+        automaton_recv, datawords_after_recv, s2d_recv = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -176,13 +176,13 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
     def test_NOT_variant_with_predicates(self):
         automaton_path = get_test_data_path("variantreadpred.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("variantreadpred.cslang")
             )
         )
 
-        automaton_read, datawords_after_read, s2d_read = cslang_main(
+        automaton_read, datawords_after_read, s2d_read = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -192,7 +192,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
             )
         )
 
-        automaton_recv, datawords_after_recv, s2d_recv = cslang_main(
+        automaton_recv, datawords_after_recv, s2d_recv = port_main(
             Namespace(
                 mode="run",
                 format="strace",

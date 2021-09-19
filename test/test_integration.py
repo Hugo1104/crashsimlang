@@ -1,7 +1,7 @@
 from builtins import object
 import os
 from argparse import Namespace
-from cslang.cslang import main as cslang_main
+from port.port import main as port_main
 
 
 def get_test_data_path(filename):
@@ -11,11 +11,11 @@ def get_test_data_path(filename):
 
 class TestIntegration(object):
     def test_openclose(self):
-        cslang_main(
+        port_main(
             Namespace(mode="build", cslang_path=get_test_data_path("openclose.cslang"))
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -36,14 +36,14 @@ class TestIntegration(object):
         assert automaton.registers["retval"] == "-1"
 
     def test_uninteresting_dataword(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build",
                 cslang_path=get_test_data_path("uninterestingdataword.cslang"),
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -58,13 +58,13 @@ class TestIntegration(object):
         assert automaton
 
     def test_empty_dataword(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build", cslang_path=get_test_data_path("emptydataword.cslang")
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
