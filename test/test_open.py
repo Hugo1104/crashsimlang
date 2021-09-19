@@ -1,7 +1,7 @@
 from builtins import object
 import os
 from argparse import Namespace
-from cslang.cslang import main as cslang_main
+from port.port import main as port_main
 
 
 def get_test_data_path(filename):
@@ -11,11 +11,11 @@ def get_test_data_path(filename):
 
 class TestOpen(object):
     def test_open(self):
-        cslang_main(
+        port_main(
             Namespace(mode="build", cslang_path=get_test_data_path("open.cslang"))
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
@@ -30,7 +30,7 @@ class TestOpen(object):
         assert automaton.is_accepting
 
     def test_open_fail_pred(self):
-        cslang_main(
+        port_main(
             Namespace(
                 mode="build",
                 format="strace",
@@ -38,7 +38,7 @@ class TestOpen(object):
             )
         )
 
-        automaton, datawords_after, _ = cslang_main(
+        automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",
                 format="strace",
