@@ -741,22 +741,6 @@ def main(args=None):
             for i in datawords:
                 automaton.match(i)
 
-        elif args.format == "csv":  # copy this and make it for csv
-
-            csv_path = args.csv_path
-            automaton_path = args.automaton_path
-
-            # Load in the automaton
-            with open(automaton_path, "rb") as f:
-                automaton, cb = pickle.load(f)
-
-            c2d = CSVToDatawords(cb, csv_path)  # change to csv
-            datawords = c2d.get_datawords()
-
-            # Pass each dataword in the list in series into the automaton
-            for i in datawords:
-                automaton.match(i)
-
             # At the end of everything we have a transformed set of datawords.
             # We either use them if we ended in an accepting state or drop ignore
             # them if we haven't ended in an accepting state

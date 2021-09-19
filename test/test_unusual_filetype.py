@@ -21,7 +21,7 @@ class TestUnusualFiletype(unittest.TestCase):
                 format="strace",
                 strace_path=get_test_data_path("stat_blk.strace"),
                 syscall_definitions=get_test_data_path(
-                    "../cslang/syscall_definitions.pickle"
+                    "../port/syscall_definitions.pickle"
                 ),
                 automaton_path=get_test_data_path("stat_blk.auto"),
             )
