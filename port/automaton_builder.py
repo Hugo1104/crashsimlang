@@ -6,7 +6,7 @@ from .register_automaton import Transition
 from .register_automaton import SubautomatonTransition
 from .dataword import DataWord
 from .adt import ContainerBuilder
-from .cslang_error import CSlangError
+from .port_error import PORTError
 import dill as pickle
 
 
@@ -92,7 +92,7 @@ def handle_regassign(automaton, register_name, value):
     elif value[0] == "REGEXP":
         automaton.registers[register_name] = _get_expression_value(automaton, value[1])
     else:
-        raise CSlangError("Bad type in register assignment: {}".format(value[0]))
+        raise PORTError("Bad type in register assignment: {}".format(value[0]))
 
 
 def _get_expression_value(automaton, exp):
@@ -116,7 +116,7 @@ def _get_expression_value(automaton, exp):
         rhs = _to_num_or_str(rhs)
 
     if lhs[0] != rhs[0]:
-        raise CSlangError(
+        raise PORTError(
             "Type mismatch between registers {} and {}".format(exp[1], exp[1])
         )
 
@@ -126,21 +126,21 @@ def _get_expression_value(automaton, exp):
         elif lhs[0] == "Numeric":
             return float(lhs[1]) + float(rhs[1])
         else:
-            raise CSlangError("Bad type in addition/concatination: {}".format(lhs[0]))
+            raise PORTError("Bad type in addition/concatination: {}".format(lhs[0]))
     elif exp[0] == "REGSUB":
         if lhs[0] != "Numeric" or rhs[0] != "Numeric":
-            raise CSlangError("Bad type in subtraction: {}".format(lhs[0]))
+            raise PORTError("Bad type in subtraction: {}".format(lhs[0]))
         return float(lhs[1]) - float(rhs[1])
     elif exp[0] == "REGMUL":
         if lhs[0] != "Numeric" or rhs[0] != "Numeric":
-            raise CSlangError("Bad type in multiplication: {}".format(lhs[0]))
+            raise PORTError("Bad type in multiplication: {}".format(lhs[0]))
         return float(lhs[1]) * float(rhs[1])
     elif exp[0] == "REGDIV":
         if lhs[0] != "Numeric" or rhs[0] != "Numeric":
-            raise CSlangError("Bad type in division: {}".format(lhs[0]))
+            raise PORTError("Bad type in division: {}".format(lhs[0]))
         return float(lhs[1]) / float(rhs[1])
     else:
-        raise CSlangError("Bad expression operation: {}".format(exp[0]))
+        raise PORTError("Bad expression operation: {}".format(exp[0]))
 
 
 def _value_from_register(automaton, reg):
@@ -150,7 +150,7 @@ def _value_from_register(automaton, reg):
     elif type(val) == float:
         return ("Numeric", val)
     else:
-        raise CSlangError(
+        raise PORTError(
             "Got bad type out of register value: {}, {}".format(val, type(val))
         )
 
@@ -161,7 +161,7 @@ def _to_num_or_str(val):
     elif val[0] in ["String", "STRING_LITERAL"]:
         return ("String", val[1])
     else:
-        raise CSlangError("Bad type in cast to String or Numeric: {}".format(val[0]))
+        raise PORTError("Bad type in cast to String or Numeric: {}".format(val[0]))
 
 
 def handle_typedef(cb, type_name, type_definition):

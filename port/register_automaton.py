@@ -231,7 +231,7 @@ class Transition(object):
                         ((i[0] + i[1] + str(i[2])), member[1] == str(i[2]))
                     )
             else:
-                raise CSlangError("Bad operator in predicate: {}".format(i[1]))
+                raise PORTError("Bad operator in predicate: {}".format(i[1]))
         # All predicate results must be True for us to return True here
         # the all() function handles this nicely
         return all([x[1] for x in predicate_results])

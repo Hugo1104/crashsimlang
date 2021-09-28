@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name = "port",                 #configuration, how to change these
+    name = "port",                
     version = "0.0.1",
     author = "Preston Moore",
     author_email = "pkm266@nyu.edu",

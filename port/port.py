@@ -14,7 +14,7 @@ from posix_omni_parser import Trace
 from .adt import ContainerBuilder
 from . import automaton_builder
 from . import type_checker
-from .cslang_error import CSlangError
+from .port_error import PORTError
 import dill as pickle
 import os
 import sys
@@ -124,7 +124,7 @@ def t_IDENTIFIER(t):
 
 
 def t_error(t):
-    raise CSlangError("Lex error with: {}".format(t))
+    raise PORTError("Lex error with: {}".format(t))
 
 
 def t_COMMENT(t):
@@ -132,7 +132,7 @@ def t_COMMENT(t):
 
 
 def p_error(p):
-    raise CSlangError("Parse error with: {}".format(p))
+    raise PORTError("Parse error with: {}".format(p))
 
 
 def p_statementlist(p):
@@ -158,9 +158,7 @@ def p_preamblestatement(p):
     """
     global in_preamble
     if not in_preamble:
-        raise CSlangError(
-            "Found preamble statement after preamble processing has ended"
-        )
+        raise PORTError("Found preamble statement after preamble processing has ended")
 
     p[0] = p[1]
 
@@ -576,7 +574,7 @@ def main(args=None):
         hasattr(args, "string") and args.string is not None
     ):
         parse_argparser.print_help()
-        raise CSlangError("-c and -s may not be used together")
+        raise PORTError("-c and -s may not be used together")
 
     in_preamble = True
     lexer = lex.lex()
