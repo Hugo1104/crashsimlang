@@ -3,12 +3,12 @@ setup.py
 port/__init__.py
 port/adt.py
 port/automaton_builder.py
-port/cslang_error.py
 port/csvtodatawords.py
 port/dataword.py
 port/jsontodatawords.py
 port/parsetab.py
 port/port.py
+port/port_error.py
 port/register_automaton.py
 port/strace2datawords.py
 port/type_checker.py

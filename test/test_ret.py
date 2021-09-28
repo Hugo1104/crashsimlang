@@ -3,7 +3,7 @@ import os
 import unittest
 from argparse import Namespace
 from port.port import main as port_main
-from port.cslang_error import CSlangError
+from port.port_error import PORTError
 
 
 def get_test_data_path(filename):
@@ -14,7 +14,7 @@ def get_test_data_path(filename):
 class TestRet(unittest.TestCase):
     def test_ret(self):
 
-        with self.assertRaises(CSlangError) as cm:
+        with self.assertRaises(PORTError) as cm:
             port_main(
                 Namespace(mode="build", cslang_path=get_test_data_path("ret.cslang"))
             )
@@ -22,7 +22,7 @@ class TestRet(unittest.TestCase):
         assert "A structure does not have return value position" in str(cm.exception)
 
     def test_definedup(self):
-        with self.assertRaises(CSlangError) as cm:
+        with self.assertRaises(PORTError) as cm:
             port_main(
                 Namespace(
                     mode="build", cslang_path=get_test_data_path("define_dup.cslang")
@@ -32,7 +32,7 @@ class TestRet(unittest.TestCase):
         assert "Illegal type redefinition" in str(cm.exception)
 
     def test_definenonexistant(self):
-        with self.assertRaises(CSlangError) as cm:
+        with self.assertRaises(PORTError) as cm:
             port_main(
                 Namespace(
                     mode="build",

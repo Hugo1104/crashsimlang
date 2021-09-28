@@ -2,7 +2,7 @@ import os
 import unittest
 from argparse import Namespace
 from port.port import main as port_main
-from port.cslang_error import CSlangError
+from port.port_error import PORTError
 
 
 def get_test_data_path(filename):
@@ -12,7 +12,7 @@ def get_test_data_path(filename):
 
 class TestChecks(unittest.TestCase):
     def test_no_output_on_not_datawords(self):
-        with self.assertRaises(CSlangError) as cm:
+        with self.assertRaises(PORTError) as cm:
             ast = port_main(
                 Namespace(
                     mode="parse",
