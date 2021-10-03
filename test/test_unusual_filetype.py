@@ -13,7 +13,7 @@ def get_test_data_path(filename):
 class TestUnusualFiletype(unittest.TestCase):
     def test_stat_blk(self):
         automaton, cb = port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("stat_blk.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("stat_blk.port"))
         )
         automaton, datawords_after, _ = port_main(
             Namespace(

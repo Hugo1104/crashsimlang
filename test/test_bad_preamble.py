@@ -17,7 +17,7 @@ class TestOpen(unittest.TestCase):
         with self.assertRaises(PORTError) as cm:
             port_main(
                 Namespace(
-                    mode="build", cslang_path=get_test_data_path("bad_preamble.cslang")
+                    mode="build", port_path=get_test_data_path("bad_preamble.port")
                 )
             )
 

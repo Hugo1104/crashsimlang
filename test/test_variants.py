@@ -16,7 +16,7 @@ class TestVariants(unittest.TestCase):
             Namespace(
                 mode="parse",
                 check=True,
-                cslang_path=None,
+                port_path=None,
                 string="""
 event otherread {read filedesc: Numeric@0};
 """,
@@ -35,7 +35,7 @@ event otherread {read filedesc: Numeric@0};
             Namespace(
                 mode="parse",
                 check=True,
-                cslang_path=None,
+                port_path=None,
                 string="""
 event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
 """,
@@ -53,15 +53,13 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
         assert ast[0][2][1][1][0][1] == "0"
         assert ast[0][2][1][1][0][2] == "filedesc"
 
-    syscall_definitions = get_test_data_path("../cslang/syscall_definitions.pickle")
+    syscall_definitions = get_test_data_path("../port/syscall_definitions.pickle")
 
     def test_simple_variant(self):
         automaton_path = get_test_data_path("variantread.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("variantread.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("variantread.port"))
         )
 
         automaton_read, datawords_after_read, s2d_read = port_main(
@@ -96,9 +94,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
         automaton_path = get_test_data_path("variantreadnot.auto")
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("variantreadnot.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("variantreadnot.port"))
         )
 
         automaton_read, datawords_after_read, s2d_read = port_main(
@@ -134,7 +130,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
         port_main(
             Namespace(
-                mode="build", cslang_path=get_test_data_path("variantreadpred.cslang")
+                mode="build", port_path=get_test_data_path("variantreadpred.port")
             )
         )
 
@@ -178,7 +174,7 @@ event bothread {read filedesc: Numeric@0} | {otherread filedesc: Numeric@0};
         syscall_definitions = get_test_data_path("syscall_definitions.pickle")
         port_main(
             Namespace(
-                mode="build", cslang_path=get_test_data_path("variantreadpred.cslang")
+                mode="build", port_path=get_test_data_path("variantreadpred.port")
             )
         )
 

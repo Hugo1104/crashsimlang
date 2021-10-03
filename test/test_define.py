@@ -13,9 +13,9 @@ def get_test_data_path(filename):
 
 class TestDefine(unittest.TestCase):
     def test_define(self):
-        test_file = get_test_data_path("define.cslang")
+        test_file = get_test_data_path("define.port")
         automaton, containerbuilder = port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("define.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("define.port"))
         )
 
         automaton, datawords, _ = port_main(
@@ -46,9 +46,7 @@ class TestDefine(unittest.TestCase):
     def test_definedup(self):
         with self.assertRaises(PORTError) as cm:
             port_main(
-                Namespace(
-                    mode="build", cslang_path=get_test_data_path("define_dup.cslang")
-                )
+                Namespace(mode="build", port_path=get_test_data_path("define_dup.port"))
             )
 
         assert "Illegal type redefinition" in str(cm.exception)
@@ -58,7 +56,7 @@ class TestDefine(unittest.TestCase):
             port_main(
                 Namespace(
                     mode="build",
-                    cslang_path=get_test_data_path("define_nonexistant.cslang"),
+                    port_path=get_test_data_path("define_nonexistant.port"),
                 )
             )
 

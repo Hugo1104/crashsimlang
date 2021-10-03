@@ -12,7 +12,7 @@ def get_test_data_path(filename):
 class TestIntegration(object):
     def test_openclose(self):
         port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("openclose.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("openclose.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -39,7 +39,7 @@ class TestIntegration(object):
         port_main(
             Namespace(
                 mode="build",
-                cslang_path=get_test_data_path("uninterestingdataword.cslang"),
+                port_path=get_test_data_path("uninterestingdataword.port"),
             )
         )
 
@@ -59,9 +59,7 @@ class TestIntegration(object):
 
     def test_empty_dataword(self):
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("emptydataword.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("emptydataword.port"))
         )
 
         automaton, datawords_after, _ = port_main(

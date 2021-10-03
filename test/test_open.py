@@ -11,9 +11,7 @@ def get_test_data_path(filename):
 
 class TestOpen(object):
     def test_open(self):
-        port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("open.cslang"))
-        )
+        port_main(Namespace(mode="build", port_path=get_test_data_path("open.port")))
 
         automaton, datawords_after, _ = port_main(
             Namespace(
@@ -34,7 +32,7 @@ class TestOpen(object):
             Namespace(
                 mode="build",
                 format="strace",
-                cslang_path=get_test_data_path("open_fail_name.cslang"),
+                port_path=get_test_data_path("open_fail_name.port"),
             )
         )
 

@@ -13,9 +13,9 @@ def get_test_data_path(filename):
 
 class TestRepetition(unittest.TestCase):
     def test_single(self):
-        test_file = get_test_data_path("repetition.cslang")
+        test_file = get_test_data_path("repetition.port")
         automaton, containerbuilder = port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("repetition.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("repetition.port"))
         )
         assert len(automaton.states) == 3
         assert len(automaton.subautomata) == 2

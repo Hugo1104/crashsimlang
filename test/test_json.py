@@ -12,9 +12,9 @@ def get_test_data_path(filename):
 
 class TestJSON(unittest.TestCase):
     def test_json(self):
-        test_file = get_test_data_path("update.cslang")
+        test_file = get_test_data_path("update.port")
         automaton, containerbuilder = port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("update.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("update.port"))
         )
 
         automaton, datawords, _ = port_main(

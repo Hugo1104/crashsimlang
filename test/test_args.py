@@ -16,7 +16,7 @@ class TestArgs(unittest.TestCase):
             ast = port_main(
                 Namespace(
                     mode="parse",
-                    cslang_file="test/bad.cslang",
+                    port_file="test/bad.port",
                     check=True,
                     string="""
 event read {filedesc: Numeric@0};
@@ -27,9 +27,7 @@ NOT read({}) -> read({filedesc: ->bad});
             )
 
     def test_skip(self):
-        port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("open.cslang"))
-        )
+        port_main(Namespace(mode="build", port_path=get_test_data_path("open.port")))
         automaton, datawords_after, _ = port_main(
             Namespace(
                 mode="run",

@@ -14,9 +14,7 @@ def get_test_data_path(filename):
 class TestRegisterExpressions(unittest.TestCase):
     def test_assign(self):
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registerassign.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registerassign.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -36,11 +34,9 @@ class TestRegisterExpressions(unittest.TestCase):
         assert automaton.registers["assignids"] == "worked"
 
     def test_concat(self):
-        test_file = get_test_data_path("registerconcat.cslang")
+        test_file = get_test_data_path("registerconcat.port")
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registerconcat.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registerconcat.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -64,7 +60,7 @@ class TestRegisterExpressions(unittest.TestCase):
             port_main(
                 Namespace(
                     mode="build",
-                    cslang_path=get_test_data_path("register_badadd.cslang"),
+                    port_path=get_test_data_path("register_badadd.port"),
                 )
             )
 
@@ -72,9 +68,7 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_add(self):
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registeradd.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registeradd.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -105,9 +99,7 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_subtract(self):
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registersub.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registersub.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -138,9 +130,7 @@ class TestRegisterExpressions(unittest.TestCase):
 
     def test_multiply(self):
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registermul.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registermul.port"))
         )
 
         automaton, datawords_after, _ = port_main(
@@ -170,11 +160,9 @@ class TestRegisterExpressions(unittest.TestCase):
         assert automaton.registers["nregreg"] == 1
 
     def test_divide(self):
-        test_file = get_test_data_path("registerdiv.cslang")
+        test_file = get_test_data_path("registerdiv.port")
         port_main(
-            Namespace(
-                mode="build", cslang_path=get_test_data_path("registerdiv.cslang")
-            )
+            Namespace(mode="build", port_path=get_test_data_path("registerdiv.port"))
         )
 
         automaton, datawords_after, _ = port_main(

@@ -12,9 +12,9 @@ def get_test_data_path(filename):
 
 class TestCSV(unittest.TestCase):
     def test_csv(self):
-        test_file = get_test_data_path("csv.cslang")
+        test_file = get_test_data_path("csv.port")
         automaton, containerbuilder = port_main(
-            Namespace(mode="build", cslang_path=get_test_data_path("csv.cslang"))
+            Namespace(mode="build", port_path=get_test_data_path("csv.port"))
         )
 
         automaton, datawords, _ = port_main(

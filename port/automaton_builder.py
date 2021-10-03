@@ -30,9 +30,7 @@ def process_root(ast_root):
             sub_automaton = RegisterAutomaton()
             for dw in i[1]:
                 if dw[0] != "DATAWORD":
-                    raise CSlangError(
-                        "Encountered non-dataword statement in repetition"
-                    )
+                    raise PORTError("Encountered non-dataword statement in repetition")
                 # Create a new dataword, and apply it to our subautomaton
                 handle_dataword(sub_automaton, container_builder, dw[1:])
             sub_automaton.states[-1].is_accepting = True

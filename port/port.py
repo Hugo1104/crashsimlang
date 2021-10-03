@@ -458,7 +458,11 @@ def main(args=None):
 
     parse_argparser = subparsers.add_parser("parse")
     parse_argparser.add_argument(
-        "-c", "--cslang-path", required=False, type=str, help="CSlang file to be parsed"
+        "-c",
+        "--port-path",
+        required=False,
+        type=str,
+        help="PORT file to be parsed",  # should I change it to -p
     )
     parse_argparser.add_argument(
         "-s", "--string", required=False, type=str, help="String to parse"
@@ -474,11 +478,11 @@ def main(args=None):
     build_argparser = subparsers.add_parser("build")
 
     build_argparser.add_argument(
-        "-c",
-        "--cslang-path",
+        "-c",  # same question
+        "--port-path",
         required=True,
         type=str,
-        help="CSlang file to be compiled",
+        help="PORT file to be compiled",
     )
 
     run_subparsers = subparsers.add_parser("run")
@@ -491,7 +495,7 @@ def main(args=None):
         "--automaton-path",
         required=True,
         type=str,
-        help="Location of CSlang automaton to be used in processing the specified strace file.",
+        help="Location of PORT automaton to be used in processing the specified strace file.",
     )
     strace_run_argparser.add_argument(
         "-s",
@@ -522,7 +526,7 @@ def main(args=None):
         "--automaton-path",
         required=True,
         type=str,
-        help="Location of CSlang automaton to be used in processing the specified strace file.",
+        help="Location of PORT automaton to be used in processing the specified strace file.",
     )
     jsonrpc_run_argparser.add_argument(
         "-j",
@@ -539,7 +543,7 @@ def main(args=None):
         "--automaton-path",
         required=True,
         type=str,
-        help="Location on of CSlang automaton to be used",
+        help="Location on of PORT automaton to be used",
     )
 
     xmlrpc_run_argparser.add_argument(
@@ -557,7 +561,7 @@ def main(args=None):
         "--automaton-path",
         required=True,
         type=str,
-        help="Location of CSlang automaton to be used in processing the specified strace file.",
+        help="Location of PORT automaton to be used in processing the specified strace file.",
     )
     csvrpc_run_argparser.add_argument(
         "-c",
@@ -570,7 +574,7 @@ def main(args=None):
     if not args:
         args = parser.parse_args()
 
-    if (hasattr(args, "cslang_path") and args.cslang_path is not None) and (
+    if (hasattr(args, "port_path") and args.port_path is not None) and (
         hasattr(args, "string") and args.string is not None
     ):
         parse_argparser.print_help()
@@ -583,8 +587,8 @@ def main(args=None):
     if args.mode == "parse":
         data = None
         ast = None
-        if hasattr(args, "cslang_path") and args.cslang_path is not None:
-            with open(args.cslang_path, "r") as f:
+        if hasattr(args, "port_path") and args.port_path is not None:
+            with open(args.port_path, "r") as f:
                 data = f.read()
 
         if hasattr(args, "string") and args.string is not None:
@@ -601,12 +605,12 @@ def main(args=None):
         return ast
 
     if args.mode == "build":
-        basename = os.path.splitext(os.path.basename(args.cslang_path))[0]
-        dirname = os.path.dirname(args.cslang_path)
+        basename = os.path.splitext(os.path.basename(args.port_path))[0]
+        dirname = os.path.dirname(args.port_path)
         automaton_path = os.path.join(dirname, basename + ".auto")
         cb_path = os.path.join(dirname, basename + ".cb")
 
-        with open(args.cslang_path, "r") as f:
+        with open(args.port_path, "r") as f:
             ast = parser.parse(f.read(), debug=False)
 
         type_checker.check_ast(ast)

@@ -15,18 +15,14 @@ class TestRet(unittest.TestCase):
     def test_ret(self):
 
         with self.assertRaises(PORTError) as cm:
-            port_main(
-                Namespace(mode="build", cslang_path=get_test_data_path("ret.cslang"))
-            )
+            port_main(Namespace(mode="build", port_path=get_test_data_path("ret.port")))
 
         assert "A structure does not have return value position" in str(cm.exception)
 
     def test_definedup(self):
         with self.assertRaises(PORTError) as cm:
             port_main(
-                Namespace(
-                    mode="build", cslang_path=get_test_data_path("define_dup.cslang")
-                )
+                Namespace(mode="build", port_path=get_test_data_path("define_dup.port"))
             )
 
         assert "Illegal type redefinition" in str(cm.exception)
@@ -36,7 +32,7 @@ class TestRet(unittest.TestCase):
             port_main(
                 Namespace(
                     mode="build",
-                    cslang_path=get_test_data_path("define_nonexistant.cslang"),
+                    port_path=get_test_data_path("define_nonexistant.port"),
                 )
             )
 
